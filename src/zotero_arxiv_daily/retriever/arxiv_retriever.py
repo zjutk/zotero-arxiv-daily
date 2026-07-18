@@ -129,6 +129,11 @@ class ArxivRetriever(BaseRetriever):
             if i.get("arxiv_announce_type", "new") in allowed_announce_types
         ]
         if self.config.executor.debug:
+            if not all_paper_ids:
+                logger.warning("arXiv RSS is empty; using one verified paper for the debug smoke test")
+                all_paper_ids = [
+                    "2304.02643",
+                ]
             all_paper_ids = all_paper_ids[:10]
 
         # Get full information of each paper from arxiv api
